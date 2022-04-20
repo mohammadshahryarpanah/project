@@ -76,7 +76,7 @@
                                 <td class="text-center" style="display: flex">
                                     <a class="btn btn-warning" href="{{route('admin.edit', $user->id)}}">ویرایش</a>
                                     <div class="display-inline-block">
-                                        <form method="post" action="/admin/destroy/{{$user->id}}">
+                                        <form method="post" action="{{route('admin.destroy',$user->id)}}">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger">حذف</button>

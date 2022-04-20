@@ -61,6 +61,8 @@ class PermissionController extends Controller
         return view('admin.permissions.edit',compact('permission'));
     }
 
+
+
     public function update($permission_id,Request $request)
     {
         $validate_data = Validator::make($request->all(),[
