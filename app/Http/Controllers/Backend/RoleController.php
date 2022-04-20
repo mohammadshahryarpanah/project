@@ -57,7 +57,7 @@ class RoleController extends Controller
             $storeRole->permissions()->sync($request->permission_ids);
             DB::commit();
             Session::flash('add_role','عملیات با موفقیت انجام شد');
-            return redirect()->to('/admin/index/role');
+            return redirect()->to(route('role.index'));
         }catch (\Exception $exception){
             DB::rollBack();
             return back()->withErrors($exception->getMessage());
@@ -100,7 +100,7 @@ class RoleController extends Controller
             $updateRole->permissions()->sync($request->permission_ids);
             DB::commit();
             Session::flash('update_role','عملیات با موفقیت انجام شد');
-            return redirect()->to('/admin/index/role');
+            return redirect()->to(route('role.index'));
 
         }catch (\Exception $exception){
             DB::rollBack();
@@ -117,7 +117,7 @@ class RoleController extends Controller
                 return back()->withErrors('نقش مورد نظر یافت نشد');
             }
             Session::flash('delete_role','عملیات با موفقیت انجام شد');
-            return redirect()->to('/admin/index/role');
+            return redirect()->to(route('role.index'));
 
         }catch (\Exception $exception){
             return back()->withErrors($exception->getMessage());

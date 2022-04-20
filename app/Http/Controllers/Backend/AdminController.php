@@ -68,7 +68,7 @@ class AdminController extends Controller
             $user->roles()->attach($request->role_ids);
             DB::commit();
             Session::flash('add_user', 'کاربر جدید با موفقیت اضافه شد');
-            return redirect()->to('/admin/index');
+            return redirect()->to(route('admin.index'));
 
         }catch(\Exception $exception){
             DB::rollBack();
@@ -85,7 +85,7 @@ class AdminController extends Controller
                 return back()->withErrors('کاربر مورد نظر یافت نشد');
             }
             Session::flash('delete_user','کاربر با موفقیت حذف شد');
-            return redirect()->to('/admin/index');
+            return redirect()->to(route('admin.index'));
 
 
         }catch(\Exception $exception){
@@ -147,7 +147,7 @@ class AdminController extends Controller
                 $user->roles()->sync($request->role_ids);
                 DB::commit();
                 Session::flash('update_user','کاربر با موفقیت بروزرسانی شد');
-                return redirect()->to('/admin/index');
+                return redirect()->to(route('admin.index'));
 
 
             } catch (\Exception $exception) {
