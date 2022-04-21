@@ -85,7 +85,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('edit/ticket/{ticket_id}',[TicketController::class,'edit'])->name('ticket.edit');
     Route::get('index/ticket',[TicketController::class,'index'])->name('ticket.index');
     Route::post('store/ticket',[TicketController::class,'store'])->name('ticket.store');
-    Route::delete('destroy/ticket/{ticket}',[TicketController::class,'destroy'])->name('ticket.destroy');
+    Route::delete('destroy/ticket/{ticket_id}',[TicketController::class,'destroy'])->name('ticket.destroy');
     Route::put('update/ticket/{ticket_id}',[TicketController::class,'update'])->name('ticket.update');
 
 
