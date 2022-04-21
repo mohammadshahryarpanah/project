@@ -182,6 +182,15 @@
                     <li><a class="slide-item" href="{{route('admin.create')}}">ایجاد کاربر</a></li>
                 </ul>
             </li>
+
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="index.html#"><i class="side-menu__label justify-content-center icon-user"></i><span class="side-menu__label ">شهرها </span><span class="badge badge-warning side-badge">3</span></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{route('city.index')}}">لیست شهرها</a></li>
+                    <li><a class="slide-item" href="{{route('city.create')}}">ایجاد شهر</a></li>
+                </ul>
+            </li>
+
             <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="index.html#"><i class="side-menu__label justify-content-center icon-user"></i><span class="side-menu__label ">نقش های کاربران </span><span class="badge badge-warning side-badge">3</span></a>
                 <ul class="slide-menu">
@@ -193,8 +202,32 @@
             <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="index.html#"><i class="side-menu__label justify-content-center icon-user"></i><span class="side-menu__label ">سطوح دسترسی </span><span class="badge badge-warning side-badge">3</span></a>
                 <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{route('permission.index')}}">لیست سطوح دسترسی </a></li>
+                    <li><a class="slide-item" href="{{route('permission.index')}}">لیست سطوح دسترسی ها </a></li>
                     <li><a class="slide-item" href="{{route('permission.create')}}">ایجادسطح دسترسی</a></li>
+                </ul>
+            </li>
+
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="index.html#"><i class="side-menu__label justify-content-center icon-user"></i><span class="side-menu__label ">نوع فروشنده </span><span class="badge badge-warning side-badge">3</span></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{route('type.index')}}">لیست نوع فروشنده ها </a></li>
+                    <li><a class="slide-item" href="{{route('type.create')}}">ایجاد نوع فروشنده</a></li>
+                </ul>
+            </li>
+
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="index.html#"><i class="side-menu__label justify-content-center icon-user"></i><span class="side-menu__label "> فروشنده </span><span class="badge badge-warning side-badge">3</span></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{route('seller.index')}}">لیست  فروشنده ها </a></li>
+                    <li><a class="slide-item" href="{{route('seller.create')}}">ایجاد  فروشنده</a></li>
+                </ul>
+            </li>
+
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="index.html#"><i class="side-menu__label justify-content-center icon-user"></i><span class="side-menu__label "> بلیط </span><span class="badge badge-warning side-badge">3</span></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{route('ticket.index')}}">لیست  بلیط ها </a></li>
+                    <li><a class="slide-item" href="{{route('ticket.create')}}">ایجاد  بلیط</a></li>
                 </ul>
             </li>
 {{--            <li class="slide">--}}
