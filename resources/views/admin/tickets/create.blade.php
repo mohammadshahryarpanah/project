@@ -3,6 +3,7 @@
 
 @section('content')
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 {{--    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>--}}
 
@@ -10,6 +11,8 @@
 
     <section class="content">
         <div class="box box-info mt-3">
+
+
             <div class="box-header " style="margin-top: 30%">
                 <h3 class="box-title pull-right ">ایجاد بلیط </h3>
             </div>
@@ -17,12 +20,19 @@
             <div class="box-body " style="margin-top: 20%">
                 <div class="row">
                     <div class="col-md-12 col-md-offset-1">
-                        <form id="SubmitForm">
+                        <form id="" method="post" action="{{route('ticket.store')}}" enctype="multipart/form-data">
                         @include('admin.partials.form-errors')
+                            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+
                             @csrf
                             <div class="form-group">
                                 <label for="title">تاریخ شروع</label>
                                 <input id="InputStartDate" type="text" name="start_date" class="form-control" placeholder=" تاریخ شروع را وارد کنید..." value="{{old('start_date')}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="title">نام بلیط </label>
+                                <input id="InputStartDate" type="text" name="name" class="form-control" placeholder=" لطفا نام بلیط را وارد کنید..." value="{{old('name')}}">
                             </div>
 
                             <div class="form-group">
@@ -40,9 +50,14 @@
                                 <input id="InputEndTime" type="text" name="end_time" class="form-control" placeholder=" ساعت پایان را وارد کنید..." value="{{old('end_time')}}">
                             </div>
 
+                            <div class="form-group">
+                                <label for="title"> موجودی بلیط</label>
+                                <input id="InputQty" type="text" name="qty" class="form-control" placeholder=" موجودی بلیط را وارد کنید..." value="{{old('qty')}}">
+                            </div>
+
                             <div class="col-md-6">
                                 <label for="title">  تصویر</label>
-                                <input id="logo" type="file" name="image" >
+                                <input id="InputLogo" type="file" name="image" >
                             </div>
 
                             <button type="submit" class="btn btn-success btn-submit" style="margin-top: 10%">ذخیره</button>
@@ -54,53 +69,87 @@
         </div>
     </section>
 
-    <script type="text/javascript">
-        $.ajaxSetup({
+        <script type="text/javascript">
 
-            headers: {
+            $('#SubmitForm').on('submit',function(e){
+                $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                e.preventDefault();
 
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-            }
-
-        });
-        $("#SubmitForm").click(function(e){
-
-
-
-            e.preventDefault();
-
-
-
-            var start_date = $("input[name=start_date]").val();
-            var end_date = $("input[name=end_date]").val();
-            var start_time = $("input[name=start_time]").val();
-            var end_time = $("input[name=end_time]").val();
-            var qty = $("input[name=qty]").val();
-            var image = $("input[name=image]").val();
+                let formData = new FormData(this)
+                let start_date = $('#InputStartDate').val();
+                let end_date = $('#InputEndDate').val();
+                let start_time = $('#InputStartTime').val();
+                let end_time = $('#InputEndTime').val();
+                let qty = $('#InputQty').val();
+                let image = $('#InputLogo').files;
 
 
+                $.ajax({
+                    url: "{{route('ticket.store')}}",
+                    type:"POST",
+                    headers: { 'Content-Type' : 'application/x-www-form-urlencoded'},
+                    data:{
+                        formData
+                    },
+                    success:function(response){
+                        $('#successMsg').show();
+                        console.log(response);
+                    },
+                    error: function(response) {
+                        console.log(response)
+                        // $('#nameErrorMsg').text(response.responseJSON.errors.name);
+                        // $('#statusErrorMsg').text(response.responseJSON.errors.email);
 
-            $.ajax({
-
-                type:'POST',
-
-                url:"{{ route('ticket.store') }}",
-
-                data:{start_date:start_date, end_date:end_date, start_time:start_time,end_time:end_time,qty:qty,image:image},
-
-                success:function(data){
-
-                    alert(data.success);
-
-                }
-
+                    },
+                });
             });
 
-
-
-        });
-
     </script>
+
+    <script>
+
+
+{{--        $(document).ready(function (){--}}
+{{--            $.ajaxSetup({--}}
+{{--                headers: {--}}
+{{--                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+{{--                }--}}
+{{--            });--}}
+{{--            $("#SubmitForm").on('submit',(function(e){--}}
+{{--                e.preventDefault();--}}
+{{--                let formData = new FormData(this)--}}
+
+{{--                formData.append('start_date', $("#InputStartDate").val());--}}
+{{--                formData.append('end_date', $("#InputEndTimeDate").val());--}}
+{{--                formData.append('start_time', $("#InputStartTime").val());--}}
+{{--                formData.append('end_time', $("#InputEndTime").val());--}}
+{{--                formData.append('qty', $("#InputQty").val());--}}
+{{--                formData.append("image",$("#InputLogo")[0].files[0]);--}}
+
+
+{{--                $.ajax({--}}
+{{--                    url: "{{route('ticket.store')}}",--}}
+{{--                    type: "POST",--}}
+
+{{--                    data:{--}}
+{{--                        formData--}}
+{{--                    },--}}
+{{--                    contentType: false,--}}
+{{--                    cache: false,--}}
+{{--                    processData:false,--}}
+{{--                    success: function(data){--}}
+
+{{--                    },--}}
+{{--                });--}}
+{{--            }));});--}}
+
+{{--    </script>--}}
+
+
+
 
 @endsection

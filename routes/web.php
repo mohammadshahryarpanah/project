@@ -9,6 +9,7 @@ use \App\Http\Controllers\Backend\CityController;
 use \App\Http\Controllers\Backend\SellerTypeController;
 use \App\Http\Controllers\Backend\SellerController;
 use \App\Http\Controllers\Backend\TicketController;
+use \App\Http\Controllers\Backend\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -87,6 +88,14 @@ Route::group(['prefix' => 'admin'], function(){
     Route::post('store/ticket',[TicketController::class,'store'])->name('ticket.store');
     Route::delete('destroy/ticket/{ticket_id}',[TicketController::class,'destroy'])->name('ticket.destroy');
     Route::put('update/ticket/{ticket_id}',[TicketController::class,'update'])->name('ticket.update');
+
+    Route::get('create/user/ticket',[OrderController::class,'create'])->name('order.create');
+    Route::get('edit/user/ticket/{order_id}',[OrderController::class,'edit'])->name('order.edit');
+    Route::get('index/user/ticket',[OrderController::class,'index'])->name('order.index');
+    Route::post('store/user/ticket',[OrderController::class,'store'])->name('order.store');
+    Route::delete('destroy/user/ticket/{order_id}',[OrderController::class,'destroy'])->name('order.destroy');
+    Route::put('update/user/ticket/{order_id}',[OrderController::class,'update'])->name('order.update');
+
 
 
 });

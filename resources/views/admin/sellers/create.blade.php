@@ -12,7 +12,7 @@
             <div class="box-body " style="margin-top: 20%">
                 <div class="row">
                     <div class="col-md-12 col-md-offset-1">
-                        <form id="SubmitForm">
+                        <form id="" method="post" action="{{route('seller.store')}}" enctype="multipart/form-data">
                         @include('admin.partials.form-errors')
                             @csrf
                             <div class="form-group">
@@ -41,6 +41,16 @@
                                 <select name="seller_type_id" id="InputType" class="form-control">
                                     @foreach($seller_type as $type)
                                         <option value="{{$type->id}}">{{$type->title}}</option>
+
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city"> ثبت بلیط </label>
+                                <select name="ticket_ids[]" id="InputType" class="form-control" multiple="multiple">
+                                    @foreach($tickets as $ticket)
+                                        <option value="{{$ticket->id}}">{{$ticket->name}}</option>
 
                                     @endforeach
                                 </select>

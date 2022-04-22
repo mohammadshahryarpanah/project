@@ -29,11 +29,12 @@ class TicketController extends Controller
         $validate_data = Validator::make($request->all(),[
 
             'start_date'=>['required','string'],
+            'name'=>['required','string'],
             'end_date'=>['required','string'],
             'start_time'=>['required'],
             'end_time'=>['required'],
             'qty'=>['required','integer'],
-            'image'=>['required','file','mimes:jpg,png'],
+            'image'=>['required'],
 
 
         ],[
@@ -48,13 +49,16 @@ class TicketController extends Controller
 
             $storeTicket = new Ticket();
             $storeTicket->start_date = $request->start_date;
+            $storeTicket->name = $request->name;
             $storeTicket->end_date = $request->end_date;
             $storeTicket->start_time = $request->start_time;
             $storeTicket->end_time = $request->end_time;
             $storeTicket->qty = $request->qty;
-            $storeTicket->image = ImageFileService::upload($request->image);
+            $storeTicket->path = ImageFileService::upload($request->file('image'));
             $storeTicket->save();
-            return redirect()->to(route('ticket.index'));
+//                        return response()->json(['success'=>'Successfully']);
+
+//            return redirect()->to(route('ticket.index'));
         }catch (\Exception $exception){
             return back()->withErrors($exception->getMessage());
         }

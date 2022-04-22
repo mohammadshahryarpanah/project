@@ -10,4 +10,9 @@ class Ticket extends Model
     use HasFactory;
 
     protected $table='tickets';
+
+    public function sellers()
+    {
+        return $this->belongsToMany(Seller::class);
+    }
 }

@@ -42,9 +42,17 @@
                                 <label for="city"> شهر </label>
                                 <select name="city_id" id="" class="form-control">
                                     @foreach($seller_type as $type)
-{{--                                        <option value="{{$city->id}}">{{$city->name}}</option>--}}
                                         <option value="{{$type->id}}" @if($seller->seller_type_id == $type->id) selected @endif  >{{$type->title}}</option>
 
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city"> ثبت بلیط </label>
+                                <select name="ticket_ids[]" id="InputType" class="form-control" multiple="multiple">
+                                    @foreach($tickets as $ticket)
+                                        <option value="{{$ticket->id}}" @if($seller->tickets->contains($ticket->id)) selected @endif >{{$ticket->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

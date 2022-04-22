@@ -58,7 +58,7 @@ class SellerTypeController extends Controller
             $storeSellerType->title = $request->title;
             $storeSellerType->city_id = $request->city_id;
             $storeSellerType->description = $request->description;
-            $storeSellerType->path = ImageFileService::upload($request->image);
+            $storeSellerType->path = ImageFileService::upload($request->file('image'));
             $storeSellerType->save();
             Session::flash('add_role','عملیات با موفقیت انجام شد');
             return redirect()->to(route('type.index'));

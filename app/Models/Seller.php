@@ -13,4 +13,10 @@ class Seller extends Model
     {
         return $this->belongsTo(seller_type::class);
     }
+
+    public function tickets()
+    {
+        return $this->belongsToMany(Ticket::class);
+
+    }
 }
