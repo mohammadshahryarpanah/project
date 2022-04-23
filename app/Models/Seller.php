@@ -17,6 +17,10 @@ class Seller extends Model
     public function tickets()
     {
         return $this->belongsToMany(Ticket::class);
+    }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

@@ -19,14 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
 
-            $table->unsignedBigInteger('seller_id');
-            $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('CASCADE');
-
-            $table->unsignedBigInteger('ticket_id');
-            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('CASCADE');
-
-            $table->string('start_date');
-            $table->string('start_time');
+             $table->boolean('status');
 
             $table->timestamps();
         });

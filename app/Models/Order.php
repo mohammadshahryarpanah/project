@@ -9,4 +9,16 @@ class Order extends Model
 {
     use HasFactory;
     protected $table='orders';
+
+    public function tickets(){
+        return $this->belongsToMany(Ticket::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function seller(){
+        return $this->belongsTo(Seller::class);
+    }
 }

@@ -19,7 +19,7 @@
             <div class="box-body " style="margin-top: 20%">
                 <div class="row">
                     <div class="col-md-12 col-md-offset-1">
-                        <form id="" >
+                        <form id="" method="post" action="{{route('order.store')}}" >
                         @include('admin.partials.form-errors')
                             <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 
@@ -47,11 +47,11 @@
                             <div class="form-group">
                                 <label for="category_parent">انتخاب بلیط </label>
                                 <select name="ticket_ids[]" id="" class="form-control" multiple="multiple" >
-                                    @if(request()->get('start_date') && request()->get('start_time'))
+{{--                                    @if(request()->get('start_date') && request()->get('start_time'))--}}
                                     @foreach($tickets as $ticket)
                                         <option value="{{$ticket->id}}">{{$ticket->name}}</option>
                                     @endforeach
-                                    @endif
+{{--                                    @endif--}}
 
                                 </select>
                             </div>
@@ -59,6 +59,11 @@
                             <div class="form-group">
                                 <label for="title"> تاریخ</label>
                                 <input type="text" name="start_date" class="form-control" placeholder="لطفا تاریخ را وارد کنید..." value="{{old('start_date')}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="title"> تعداد</label>
+                                <input type="text" name="count" class="form-control" placeholder="لطفا تعداد بلیط را وارد کنید..." value="{{old('count')}}">
                             </div>
 
                             <div class="form-group">

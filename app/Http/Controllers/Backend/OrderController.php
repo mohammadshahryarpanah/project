@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Order_Ticket;
 use App\Models\Seller;
 use App\Models\Seller_Ticket;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
@@ -44,6 +46,8 @@ class OrderController extends Controller
 
             'user_id'=>['required','exists:users,id'],
             'seller_id'=>['required','exists:sellers,id'],
+            'ticket_ids'=>['array'],
+            'ticket_ids.*'=>['required'],
             'start_date'=>['required','string'],
             'start_time'=>['required','string'],
 
@@ -57,19 +61,34 @@ class OrderController extends Controller
             return back()->withErrors($this->errors);
         }
         try {
+//            dd($request->ticket_ids)
+
+            $tickets = Ticket::query()->whereIn('id', $request->ticket_ids)->select('qty')->get();
+
+
+            DB::beginTransaction();
+            $order = new Order();
+            $order->user_id = $request->user_id;
+            $order->status =0;
+            $order->save();
 
             $data=[];
             foreach ($request->ticket_ids as $ticket_id){
                 $data[]=[
-                    'user_id'=>$request->user_id,
+                    'order_id'=>$order->id,
                     'seller_id'=>$request->seller_id,
                     'ticket_id'=>$ticket_id,
+                    'count'=>$request->count,
                     'start_date'=>$request->start_date,
                     'start_time'=>$request->start_time
                 ];
             }
-            Order::query()->insert($data);
-            return redirect()->to(route('order.index'));
+            foreach ($tickets as $ticket)
+            if ($request->count > $ticket->qty) {
+                return back()->withErrors('موجودی بلیط به اتمام رسیده است.');
+            }
+            Order_Ticket::query()->insert($data);
+            DB::commit();
         }catch (\Exception $exception){
             DB::rollBack();
             return back()->withErrors($exception->getMessage());
@@ -122,7 +141,6 @@ class OrderController extends Controller
             if (!$order){
                 return back()->withErrors('  یافت نشد');
             }
-            return redirect()->to(route('order.index'));
 
         }catch (\Exception $exception){
             return back()->withErrors($exception->getMessage());

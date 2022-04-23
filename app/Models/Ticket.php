@@ -15,4 +15,9 @@ class Ticket extends Model
     {
         return $this->belongsToMany(Seller::class);
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
 }
